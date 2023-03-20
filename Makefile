@@ -16,6 +16,9 @@ GOFILES=$(shell find . -type f -name '*.go')
 TESTFLAGS ?= -v
 TESTFLAGS_PARALLEL ?= 8
 
+# Flags for validation
+COMMIT_RANGE ?= HEAD~..HEAD
+
 .PHONY: all build test coverage validate lint validate-git validate-vendor vendor mod-outdated
 .DEFAULT: all
 
@@ -45,13 +48,13 @@ coverage: ## generate coverprofiles from the unit tests
 	done )
 
 validate: ## run all validators
-	docker buildx bake $@
+	COMMIT_RANGE="${COMMIT_RANGE}" docker buildx bake $@
 
 lint: ## run all linters
 	docker buildx bake $@
 
 validate-git: ## validate git
-	docker buildx bake $@
+	COMMIT_RANGE="${COMMIT_RANGE}" docker buildx bake $@
 
 validate-vendor: ## validate vendor
 	docker buildx bake $@

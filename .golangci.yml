@@ -1,0 +1,19 @@
+linters:
+  enable:
+    - structcheck
+    - varcheck
+    - staticcheck
+    - unconvert
+    - gofmt
+    - goimports
+    - revive
+    - ineffassign
+    - vet
+    - unused
+    - misspell
+    - errcheck
+
+run:
+  deadline: 2m
+  skip-dirs:
+    - vendor
